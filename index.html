@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- <title>Disabling iOS OTA Updates – Kay Yin – Everywhere is within walking distance.</title> -->
+  <title>Disabling iOS OTA Updates – WriteKay</title>
+  <meta charset="utf-8" />
+  <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+  <meta name="description" content="This is a three-fold process. One, disabling check and automated download of newOTA updates. Two, removing badge “1” on Settings app. Three, removingdownloaded, but not yet installed OTA packages. " />
+  <meta property="og:description" content="This is a three-fold process. One, disabling check and automated download of newOTA updates. Two, removing badge “1” on Settings app. Three, removingdownloaded, but not yet installed OTA packages. " />
+  <meta name="author" content="Kay Yin" />
+  <meta property="og:title" content="Disabling iOS OTA Updates" />
+  <meta property="twitter:title" content="Disabling iOS OTA Updates" />
+  <!--[if lt IE 9]> <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
+  <link rel="stylesheet" type="text/css" href="./style.css" />
+  <link rel="alternate" type="application/rss+xml" title="Kay Yin - Everywhere is within walking distance." />
+  <script type='application/javascript' src='./fastclick.min.js'></script>
+  <script type="text/javascript"> if ('addEventListener' in document) { document.addEventListener('DOMContentLoaded', function () { var attachFastClick = Origami.fastclick; attachFastClick(document.body); }, false); } </script>
+  <link rel="shortcut icon" href="./favicon.ico">
+  <meta name="theme-color" content="#080808">
+</head>
+
+<body>
+  <div class="wrapper-masthead">
+    <div class="container">
+      <header class="masthead clearfix">
+        <div class="site-info">
+          <h1 class="site-name"><a href="/">Kay Yin</a></h1>
+          <p class="site-description">Everywhere is within walking distance.</p>
+        </div>
+      </header>
+    </div>
+  </div>
+  <div id="main" role="main" class="container">
+    <article class="post">
+      <h1 id="hero-heading">Disabling iOS OTA Updates</h1>
+      <div class="date">Written on February 9, 2016</div>
+      <div class="entry">
+        <p>This is a three-fold process. One, disabling check and automated download of newOTA updates. Two, removing badge “1” on Settings app. Three, removingdownloaded, but not yet installed OTA packages.</p>
+        <h2 id="step-one">Step One</h2>
+        <h3 id="disabling-automated-checking-and-download-of-new-ota-updates">Disabling automated checking and download of new OTA updates</h3>
+        <p>You can disable automated downloading of iOS updates by installing the following <a href="#" target="_blank">tvOS Beta Configuration Profile</a>.</p>
+        <blockquote>
+          <p>iPhone checks whether an update is available through a special XML document atmesu.apple.com. This configuration profile redirects the check to only look forbeta updates available for the Apple TV. Since your iPhone is not an Apple TV,the redirected catalog check will make your device “believe” iOS is up-to-date.</p>
+        </blockquote>
+        <blockquote>
+          <p>The configuration profile is cryptographically signed by Apple (in fact, configuration profile that redirects OTA update catalog through “Internal Settings” will fail to install if it is not), therefore, can be trusted. Other than adding a “Feedback” icon that you can dump into any folder at any time, this configuration profile does not negatively affect your iPhone’s performance or battery life. Don’t worry. It is not possible for your phone to suddenly install tvOS.</p>
+        </blockquote>
+        <blockquote>
+          <p>Alternatively, you can also block “mesu.apple.com” through your router settings.However, as you connect your devices to Wi-Fi hotspots <a href="https://coindataflow.com/de/aktie/XNYIF"><img class="cdf" src="./images/cdf.svg" alt="xinji solar aktie"></a> that you do not havecontrol of, this would be rendered uneffective.</p>
+        </blockquote>
+        <h2 id="step-two">Step Two</h2>
+        <h3 id="removing-badge-1-on-settings-app">Removing badge “1” on Settings app</h3>
+        <p>1) You can remove the “1” badge on Settings app icon through backing up your iPhone, then open up the backup in iBackupBot.</p>
+        <p>2) After that, go to the following directory.</p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>/System Files/Home Domain/Library/Preferences</code></pre>
+        </div>
+        <p>Then double click to open the following file:</p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>com.apple.Preferences.plist</code></pre>
+        </div>
+        <p>Then locate the following key:</p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>&lt;key&gt;kBadgedForSoftwareUpdateKey&lt;/key&gt;</code></pre>
+        </div>
+        <p>Then change the value from its initial value…</p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>&lt;true/&gt;</code></pre>
+        </div>
+        <p>…into:</p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>&lt;false/&gt;</code></pre>
+        </div>
+        <p>Then locate the following key:</p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>&lt;key&gt;kBadgedForSoftwareUpdateJumpOnceKey&lt;/key&gt;</code></pre>
+        </div>
+        <p>Then change its value from…</p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>&lt;true/&gt;</code></pre>
+        </div>
+        <p>…into:</p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>&lt;false/&gt;</code></pre>
+        </div>
+        <p>Then click save and close the window.</p>
+        <p>3) Select the following file</p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>com.apple.Preferences.plist</code></pre>
+        </div>
+        <p>Then click Restore in the toolbar. When prompted, untick the third option and only tick “Don’t copy backup” and ”Reboot device after restore (Recommended)”. Then click OK. Your phone will reboot.</p>
+        <p>4) Navigate to the following folder in iBackupBot:</p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>/System Files/Home Domain/Library/BackBoard</code></pre>
+        </div>
+        <p>Then, double click to open the following file:</p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>applicationState.plist</code></pre>
+        </div>
+        <p>Then, locate the following key:</p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>&lt;key&gt;com.apple.Preferences&lt;/key&gt;</code></pre>
+        </div>
+        <p>In the key, find the following entry:</p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>&lt;key&gt;SBApplicationBadgeKey&lt;/key&gt;</code></pre>
+        </div>
+        <p>Then change the value of the entry from:</p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>&lt;integer&gt;1&lt;/integer&gt;</code></pre>
+        </div>
+        <p>…into</p>
+        <div class="highlighter-rouge">
+          <pre class="highlight"><code>&lt;integer&gt;0&lt;/integer&gt;</code></pre>
+        </div>
+        <p>Then click save and close the window.</p>
+        <p>5) Select applicationState.plist file and click Restore in the toolbar. When prompted, untick the third option and only tick “Don’t copy backup” and ”Reboot device after restore (Recommended)”. Then click OK. Your phone will reboot.</p>
+        <blockquote>
+          <p>If everything went well, your phone’s Settings app should no longer be badged. However, it is possible for the changes to not take effect. If that’s the case for you, repeat (5).</p>
+        </blockquote>
+        <h2 id="step-three">Step Three</h2>
+        <h3 id="removing-downloaded-but-not-yet-installed-ota-packages">Removing downloaded, but not yet installed OTA packages.</h3>
+        <p>You can remove existing downloaded OTA packages at Settings — General — Storage &amp; iCloud Usage.</p>
+        <blockquote>
+          <p>Tip: After going through this guide, your iOS device will no longer be bothering you about OTA updates. If you didn’t follow through this guide and don’t mind the nagging and badged Settings icon, keep in mind when iOS prompts you to update, you should choose “Details” rather than “Later”. This is because Apple treats “Later” literally - meaning it will automatically update during midnight.</p>
+        </blockquote>
+      </div>
+    </article>
+  </div>
+  <div style="padding-bottom:50px;"></div> <!-- <div class="wrapper-footer"> <div class="container"> <footer class="footer"> </footer> </div> </div> -->
+</body>
+
+</html>
